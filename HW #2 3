@@ -1,0 +1,22 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Wed Feb 22 20:35:59 2017
+
+@author: Robert
+"""
+
+import csv
+#Setting up a dictionary to store tickets:
+tickets = {}
+#Using the dictionary reader to access by column names
+f = open("311_Service_Requests_from_2010_to_Present.csv")
+reader = csv.DictReader(f)
+for row in reader:
+    complaint = row["Complaint Type"]
+    tickets[complaint] = tickets.get(complaint, 0) + 1
+    print("Ticket", tickets[complaint], "for", complaint)
+f.close()
+worst = sorted(tickets, key = tickets.__getitem__, reverse=True)
+for i in range(10):
+    print("plate", worst[i], "has", tickets[worst[i]], "tickets.")
